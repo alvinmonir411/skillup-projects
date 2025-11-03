@@ -7,7 +7,7 @@ export async function GET() {
     const db = client.db("juwelary");
 
     const products = await db
-      .collection("juyelarycollection")
+      .collection("skillup-TEACHERCOLLECTION")
       .find({})
       .toArray();
 

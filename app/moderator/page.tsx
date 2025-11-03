@@ -1,7 +1,7 @@
 import React from "react";
 
 const page = () => {
-  return <div>Modarator page</div>;
+  return <div>student</div>;
 };
 
 export default page;

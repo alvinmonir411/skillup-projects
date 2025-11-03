@@ -1,0 +1,46 @@
+import { Suspense } from "react";
+import DashboardLoading from "../../utils/Loading";
+import { FaHome, FaInbox, FaStar } from "react-icons/fa";
+import Link from "next/link";
+
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  const links = [
+    { name: "Dashboard", path: "/dashboard", icon: <FaHome /> },
+    {
+      name: "Become a Teacher",
+      path: "/userdashboard/maketeacher",
+      icon: <FaInbox />,
+    },
+    { name: "My Requests", path: "/dashboard/requests", icon: <FaInbox /> },
+    { name: "Favorites", path: "/dashboard/favorites", icon: <FaStar /> },
+  ];
+
+  return (
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Sidebar */}
+      <aside className="w-64 bg-gray-100 dark:bg-gray-800 p-4 hidden md:block">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+          user Dashboard
+        </h2>
+        <nav className="flex flex-col gap-3">
+          {links.map((link) => (
+            <Link
+              key={link.name}
+              href={link.path}
+              className="flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+            >
+              {link.icon} <span>{link.name}</span>
+            </Link>
+          ))}
+        </nav>
+      </aside>
+
+      {/* Main content */}
+      <main className="flex-1 p-6">
+        <Suspense fallback={<DashboardLoading />}>{children}</Suspense>
+      </main>
+    </div>
+  );
+};
+
+export default Layout;
