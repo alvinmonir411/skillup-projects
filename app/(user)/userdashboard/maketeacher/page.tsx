@@ -1,13 +1,10 @@
 import { applyForTeacher } from "@/app/actions/teacherActions";
 import SubmitButton from "@/app/utils/ui/SubmitButton";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 import { redirect } from "next/navigation";
 
 export default async function MakeTeacherPage() {
-  // 💡 ৩. Server-Side Auth Check
-  const session = await auth();
-
   const formAction = applyForTeacher;
 
   return (

@@ -1,11 +1,11 @@
 // app/admin/AdminDashboard.tsx
 
 import { redirect } from "next/navigation";
-import { checkRole } from "../utils/roles";
-import { SearchUsers } from "./SearchUsers";
+import { checkRole } from "../../utils/roles";
+import { SearchUsers } from "../SearchUsers";
 import { clerkClient } from "@clerk/nextjs/server";
 // Make sure these imports are correct based on your file structure
-import { removeRole, setRole } from "../api/admin/_actions";
+import { removeRole, setRole } from "../../api/admin/_actions";
 
 export default async function AdminDashboard(params: {
   searchParams: Promise<{ search?: string }>;

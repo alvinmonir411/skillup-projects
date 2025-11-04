@@ -4,10 +4,19 @@
 import { redirect } from "next/navigation";
 import clientPromise from "../lib/mongodb";
 
+import { currentUser } from "@clerk/nextjs/server";
+
 const COLLECTION_NAME =
   process.env.NEXTAUTH_TEACHER_COLLECTION || "teacherApplications";
 
 export async function applyForTeacher(formData: FormData) {
+  const user = await currentUser();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  // --- Form Data Extraction (omitted for brevity) ---
   const fullName = formData.get("fullName")?.toString() || "";
   const subject = formData.get("subject")?.toString() || "";
   const bio = formData.get("bio")?.toString() || "";
@@ -33,6 +42,20 @@ export async function applyForTeacher(formData: FormData) {
     const db = client.db(process.env.MONGODB_DB_NAME || "juwelary");
     const applicationsCollection = db.collection(COLLECTION_NAME);
 
+    const existingApplication = await applicationsCollection.findOne({
+      clerkUserId: user.id,
+    });
+
+    if (existingApplication) {
+      console.log(
+        `User ${user.id} attempted to submit a duplicate application.`
+      );
+
+      redirect("/userdashboard?error=ApplicationAlreadySubmitted");
+    }
+
+    const userEmail = user.emailAddresses[0].emailAddress;
+
     const applicationDoc = {
       fullName,
       subject,
@@ -44,14 +67,17 @@ export async function applyForTeacher(formData: FormData) {
       promise,
       status: "pending",
       createdAt: new Date(),
-      // userEmail: user.emailAddresses[0].emailAddress, // user object লোড না করলে এটি কাজ করবে না
+      clerkUserId: user.id,
+      userEmail: userEmail,
     };
 
     await applicationsCollection.insertOne(applicationDoc);
 
+    // Redirect on successful first submission
     redirect("/");
   } catch (error) {
     console.error("MongoDB/DB Error in applyForTeacher:", error);
+    // General error redirect
     redirect("/");
   }
 }
