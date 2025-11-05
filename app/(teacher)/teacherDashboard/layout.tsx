@@ -17,7 +17,11 @@ import {
 const teacherLinks = [
   { name: "Dashboard", path: "/teacherDashboard", icon: <MdDashboard /> },
   { name: "My Profile", path: "/teacherDashboard/profile", icon: <MdPerson /> },
-  { name: "My Courses", path: "/teacherDashboard/courses", icon: <MdSchool /> },
+  {
+    name: "Add Courses",
+    path: "/teacherDashboard/courses",
+    icon: <MdSchool />,
+  },
   {
     name: "My Students",
     path: "/teacherDashboard/students",

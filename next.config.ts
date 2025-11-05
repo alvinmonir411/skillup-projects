@@ -5,6 +5,11 @@ const nextConfig = {
       root: ".",
     },
   },
+  experimental_taintObjectReference: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
+  },
 };
 
 module.exports = nextConfig;
