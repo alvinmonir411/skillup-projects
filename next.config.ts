@@ -4,8 +4,7 @@ const nextConfig = {
     turbo: {
       root: ".",
     },
-  },
-  experimental_taintObjectReference: {
+
     serverActions: {
       bodySizeLimit: "2mb",
     },

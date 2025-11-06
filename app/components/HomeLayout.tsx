@@ -1,6 +1,6 @@
 import Banner from "./Banner";
 
-const HomeLayout = () => {
+const HomeLayout = async () => {
   return (
     <div>
       <Banner />
