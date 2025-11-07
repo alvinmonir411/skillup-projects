@@ -24,6 +24,7 @@ export default async function Page() {
   }
 
   const teacherId = user.id;
+  const teacherName = user.firstName;
 
   return (
     // 1. Premium Container: Subtle background, depth (shadow-2xl), and focus border
@@ -42,6 +43,7 @@ export default async function Page() {
         {/* 🚀 MAIN FORM: Server Component Form */}
         <form action={addcourses} className="space-y-6">
           <input type="hidden" name="teacherId" value={teacherId} />
+          <input type="hidden" name="teacherName" value={teacherName} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* --- Course Thumbnail --- */}

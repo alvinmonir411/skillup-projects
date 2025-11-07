@@ -27,6 +27,7 @@ export async function addcourses(formData: FormData) {
 
   // ✅ Extract form values
   const teacherId = formData.get("teacherId") as string;
+  const teacherName = formData.get("teacherName") as string;
   const title = formData.get("title") as string;
   const category = formData.get("category") as string;
   const level = formData.get("level") as string;
@@ -62,6 +63,7 @@ export async function addcourses(formData: FormData) {
       prerequisites: requirements,
       trailerUrl,
       status: "pending",
+      isfetured: false,
       createdAt: new Date(),
     };
 

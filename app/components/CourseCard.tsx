@@ -21,7 +21,7 @@ interface Course {
 export default function CourseCard({ course }: { course: Course }) {
   return (
     <Link
-      href={`/courses/${course._id}`}
+      href={`/BrowseSkills/${course._id}`}
       className="group block bg-white rounded-2xl border border-gray-100 shadow-md hover:shadow-xl hover:border-indigo-200 transition-all duration-300 overflow-hidden"
     >
       {/* --- Thumbnail Section --- */}
