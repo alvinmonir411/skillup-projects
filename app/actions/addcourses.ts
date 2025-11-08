@@ -52,6 +52,7 @@ export async function addcourses(formData: FormData) {
 
     const newCourse = {
       teacherId,
+      teacherName,
       title,
       thumbnailUrl: imageUrl,
       category,

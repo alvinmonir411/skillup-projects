@@ -13,7 +13,7 @@ const Navber = () => {
     { href: "/BrowseSkills", name: "Browse Skills" },
     { href: "/HowItWorks", name: "How It Works" },
     { href: "/About", name: "About" },
-    { href: "dashboard", name: "Dashboard" },
+    { href: "/dashboard", name: "Dashboard" },
   ];
 
   return (

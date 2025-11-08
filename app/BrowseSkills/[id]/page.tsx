@@ -108,6 +108,10 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           </h2>
           <div className="grid sm:grid-cols-2 gap-3 text-sm">
             <p>
+              <span className="font-semibold">Teacher Name:</span>{" "}
+              {course.teacherName || "Unknown"}
+            </p>
+            <p>
               <span className="font-semibold">Teacher ID:</span>{" "}
               {course.teacherId}
             </p>
