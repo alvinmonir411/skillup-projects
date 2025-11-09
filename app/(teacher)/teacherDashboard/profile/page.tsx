@@ -1,6 +1,5 @@
 import { GetMyCourses } from "@/app/actions/GetMyCourses";
 import CourseCard from "@/app/components/CourseCard";
-import EditCourseModal from "@/app/components/EditCourseModal";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
 

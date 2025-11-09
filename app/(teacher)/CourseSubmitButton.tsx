@@ -2,9 +2,16 @@
 
 import { useFormStatus } from "react-dom";
 
-export default function CourseSubmitButton() {
-  // useFormStatus Hook shudhu Client Component-e use kora jay
+export default function CourseSubmitButton({ name }: { name?: string }) {
   const { pending } = useFormStatus();
+
+  const buttonText = pending
+    ? name
+      ? `Updating ${name}...`
+      : "Adding Course..."
+    : name
+    ? name
+    : "Add Course";
 
   return (
     <button
@@ -16,7 +23,7 @@ export default function CourseSubmitButton() {
           : "bg-blue-600 hover:bg-blue-700"
       }`}
     >
-      {pending ? "Adding Course..." : "Add Course"}
+      {buttonText}
     </button>
   );
 }

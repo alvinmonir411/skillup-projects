@@ -24,7 +24,7 @@ export default async function Page({
 }) {
   const { Editcoursesid } = await params;
   const course = await GetDeteils(Editcoursesid);
-  console.log(course);
+  console.log(course._id);
 
   if (!course) return notFound();
 
@@ -35,8 +35,18 @@ export default async function Page({
       <form action={updateCourse} className="space-y-6">
         {/* Hidden teacher info */}
         <input type="hidden" name="teacherId" value={course.teacherId} />
-        <input type="hidden" name="teacherName" value={course.teacherName} />
-
+        <input
+          type="hidden"
+          name="teacherName"
+          value={course.teacherName || ""}
+        />
+        <input type="hidden" name="courseid" value={Editcoursesid || ""} />
+        {/* Hidden input for old image URL */}
+        <input
+          type="hidden"
+          name="oldThumbnailUrl"
+          value={course.thumbnailUrl}
+        />
         {/* Thumbnail */}
         <div>
           <label className="block text-sm font-bold text-gray-700 mb-1">
@@ -46,7 +56,6 @@ export default async function Page({
             type="file"
             name="thumbnail"
             accept="image/*"
-            value={course.thumbnailUrl || ""}
             className="mt-1 block w-full text-sm text-gray-500 
               file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 
               file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 
@@ -132,11 +141,24 @@ export default async function Page({
             type="number"
             name="duration"
             min="1"
-            defaultValue={course.duration || ""}
+            defaultValue={course.durationHours || ""}
             className="mt-1 block w-full border border-gray-300 rounded-lg p-3"
           />
         </div>
 
+        {/* Price */}
+        <div>
+          <label className="block text-sm font-bold text-gray-700 mb-1">
+            Price
+          </label>
+          <input
+            type="number"
+            name="Price"
+            min="1"
+            defaultValue={course?.price || ""}
+            className="mt-1 block w-full border border-gray-300 rounded-lg p-3"
+          />
+        </div>
         {/* Language */}
         <div>
           <label className="block text-sm font-bold text-gray-700 mb-1">
@@ -219,7 +241,7 @@ export default async function Page({
         </div>
 
         {/* Submit Button */}
-        <CourseSubmitButton />
+        <CourseSubmitButton name={"update Course"} />
       </form>
     </div>
   );

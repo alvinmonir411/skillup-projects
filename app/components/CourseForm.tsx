@@ -6,6 +6,7 @@ interface CourseFormProps {
     title?: string;
     category?: string;
     level?: string;
+    Price?: number | "";
     duration?: number;
     language?: string;
     classType?: string;
@@ -117,6 +118,19 @@ export default async function CourseForm({
           name="duration"
           min="1"
           defaultValue={initialData.duration || ""}
+          className="mt-1 block w-full border border-gray-300 rounded-lg p-3"
+        />
+      </div>
+      {/* Price */}
+      <div>
+        <label className="block text-sm font-bold text-gray-700 mb-1">
+          Price
+        </label>
+        <input
+          type="number"
+          name="Price"
+          min="1"
+          defaultValue={initialData?.Price || ""}
           className="mt-1 block w-full border border-gray-300 rounded-lg p-3"
         />
       </div>

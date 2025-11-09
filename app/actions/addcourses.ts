@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { getcloudinaryImageurl } from "../lib/getcloudinaryImageurl";
 import clientPromise from "../lib/mongodb";
 
@@ -32,11 +33,13 @@ export async function addcourses(formData: FormData) {
   const category = formData.get("category") as string;
   const level = formData.get("level") as string;
   const duration = parseInt(formData.get("duration") as string, 10);
+  const price = formData.get("Price");
   const language = formData.get("language") as string;
   const courseType = formData.get("classType") as string;
   const outcomes = formData.get("outcomes") as string;
   const requirements = formData.get("requirements") as string;
   const trailerUrl = (formData.get("trailer") as string) || "";
+  const sale = 0 as number;
 
   // ✅ Quick validation
   if (!teacherId || !title || !category || duration <= 0) {
@@ -58,12 +61,14 @@ export async function addcourses(formData: FormData) {
       category,
       level,
       durationHours: duration,
+      price,
       language,
       courseType,
       learningOutcomes: outcomes,
       prerequisites: requirements,
       trailerUrl,
       status: "pending",
+      sale,
       isfetured: false,
       createdAt: new Date(),
     };
