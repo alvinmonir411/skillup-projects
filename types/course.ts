@@ -1,8 +1,6 @@
-// Ekti type file toiri korun jate sob jayga shothik type thake
-// Note: MongoDB theke ashar por $oid/Date-gulo string/number hoye jete pare
+
 export interface CourseData {
-  _id: { $oid: string } | string; // MongoDB objectId ba shudhu string
-  teacherId: string;
+  _id: { $oid: string } | string; 
   title: string;
   thumbnailUrl: string;
   category: string;

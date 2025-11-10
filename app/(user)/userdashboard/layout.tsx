@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       icon: <FaInbox />,
     },
     { name: "My Requests", path: "/dashboard/requests", icon: <FaInbox /> },
-    { name: "Favorites", path: "/dashboard/favorites", icon: <FaStar /> },
+    { name: "Favorites", path: "/userdashboard/favorites", icon: <FaStar /> },
   ];
 
   return (
