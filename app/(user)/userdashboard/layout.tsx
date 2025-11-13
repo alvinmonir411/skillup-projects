@@ -11,7 +11,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       path: "/userdashboard/maketeacher",
       icon: <FaInbox />,
     },
-    { name: "My Requests", path: "/dashboard/requests", icon: <FaInbox /> },
+    {
+      name: "My Requests",
+      path: "/userdashboard/myrequest",
+      icon: <FaInbox />,
+    },
     { name: "Favorites", path: "/userdashboard/favorites", icon: <FaStar /> },
   ];
 
