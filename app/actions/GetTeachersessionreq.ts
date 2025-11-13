@@ -1,0 +1,30 @@
+"use server";
+
+import clientPromise from "../lib/mongodb";
+import { ObjectId } from "mongodb";
+import { currentUser } from "@clerk/nextjs/server";
+
+export async function GetTeachersessionreq() {
+  try {
+    const user = await currentUser();
+    if (!user) throw new Error("User not authenticated");
+
+    const id = user.id;
+    const client = await clientPromise;
+    const db = client.db(process.env.MONGODB_DB_NAME || "juwelary");
+
+    const requestCollection = db.collection("requestSession");
+    const courseCollection = db.collection("courses");
+
+    // Get all user requests
+    const requests = await requestCollection
+      .find({ teacherId: id })
+      .sort({ createdAt: -1 })
+      .toArray();
+
+    return JSON.parse(JSON.stringify(requests));
+  } catch (error) {
+    console.error("Error in GetMyreqSession:", error);
+    return [];
+  }
+}

@@ -8,19 +8,13 @@ import { revalidatePath } from "next/cache";
 
 type ActionReturn = Promise<void>;
 
-// 1. ✅ FIX: Define the COLLECTION_NAME once and guarantee it's a string.
-//    (This avoids the string | null or string | undefined issue inside the functions)
 const COLLECTION_NAME: string =
   process.env.NEXTAUTH_TEACHER_COLLECTION || "teacherApplications";
 
-const ADMIN_TABLE_PATH = "/admin"; // Path to revalidate
-
-/**
- * Sets a public role for a user (Approve Action).
- */
+const ADMIN_TABLE_PATH = "/admin";
 export async function setRole(formData: FormData): ActionReturn {
   const id = formData.get("id") as string;
-  const role = formData.get("role") as string; // Expected: 'teacher'
+  const role = formData.get("role") as string;
 
   if (!id || !role) {
     console.error("Missing ID or Role for setRole action.");
