@@ -1,9 +1,9 @@
 "use client"; // Client Component to handle state for filtering
 
 import { GetTeachersessionreq } from "@/app/actions/GetTeachersessionreq";
-import ApproveRejectBtns from "@/app/components/ApproveRejectBtns"; // Assuming this path is correct
 import { CheckCircle2, XCircle, Clock, Filter } from "lucide-react";
 import { useState, useMemo } from "react"; // Removed unused useEffect
+// import ApproveRejectBtns from "./ApproveRejectBtns";
 
 // -------------------------------------------------------------------------
 // --- CLIENT COMPONENT FOR FILTERING AND DISPLAY (Ideally in SessionRequestList.tsx) ---
@@ -190,7 +190,7 @@ const SessionRequestList = ({
                 {req.status === "pending" && (
                   <div className="pt-4 mt-auto">
                     {/* ApproveRejectBtns is assumed to handle server actions/revalidation */}
-                    <ApproveRejectBtns requestId={req._id} />
+                    {/* <ApproveRejectBtns requestId={req._id} /> */}
                   </div>
                 )}
 

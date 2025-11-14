@@ -9,7 +9,7 @@ const AdminDashboard = async () => {
   const courses = await GetAllCourses();
   const sessionRequests = await GetMyreqSession();
   const teacherRequests = await GetAllreqsession();
-  console.log(courses, sessionRequests, teacherRequests);
+  // console.log(courses, sessionRequests, teacherRequests);
   // Analytics calculations
   const totalCourses = courses?.length;
   const totalSale = courses?.reduce((sum, c) => sum + (c.sale || 0), 0);
