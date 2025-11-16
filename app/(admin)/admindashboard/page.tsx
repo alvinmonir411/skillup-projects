@@ -3,15 +3,27 @@ import Image from "next/image";
 import { Clock, CheckCircle2, XCircle } from "lucide-react";
 import GetAllCourses from "@/app/actions/GetAllCourses";
 import { GetAllreqsession } from "@/app/actions/GetAllreqsession";
+import { AdminSessionGet } from "@/app/actions/AdminSessionGet";
 
 const AdminDashboard = async () => {
   // Fetch all necessary data
   const courses = await GetAllCourses();
   const sessionRequests = await GetMyreqSession();
   const teacherRequests = await GetAllreqsession();
-  // console.log(courses, sessionRequests, teacherRequests);
-  // Analytics calculations
+  const AdminSession = await AdminSessionGet();
+  const totalsession = AdminSession.length;
+  const pendingSession = AdminSession.filter(
+    (r: any) => r.status === "pending"
+  ).length;
+
+  const approvedSession = AdminSession.filter(
+    (r: any) => r.status === "approved"
+  ).length;
+
+  console.log(pendingSession, approvedSession, totalsession);
+
   const totalCourses = courses?.length;
+
   const totalSale = courses?.reduce((sum, c) => sum + (c.sale || 0), 0);
   const totalRevenue = courses?.reduce(
     (sum, c) => sum + (c.sale || 0) * (c.price || 0),
@@ -35,6 +47,7 @@ const AdminDashboard = async () => {
       </h1>
 
       {/* Analytics Cards */}
+      {/* Analytics Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         <div className="bg-gradient-to-r from-purple-500 to-indigo-500 p-6 rounded-xl shadow-lg">
           <h3 className="text-lg font-semibold">Total Courses</h3>
@@ -51,6 +64,20 @@ const AdminDashboard = async () => {
         <div className="bg-gradient-to-r from-yellow-400 to-orange-400 p-6 rounded-xl shadow-lg">
           <h3 className="text-lg font-semibold">Pending Requests</h3>
           <p className="text-2xl font-bold">{pendingRequests}</p>
+        </div>
+
+        {/* New Session Cards */}
+        <div className="bg-gradient-to-r from-pink-400 to-pink-600 p-6 rounded-xl shadow-lg">
+          <h3 className="text-lg font-semibold">Total Sessions</h3>
+          <p className="text-2xl font-bold">{totalsession}</p>
+        </div>
+        <div className="bg-gradient-to-r from-yellow-400 to-yellow-600 p-6 rounded-xl shadow-lg">
+          <h3 className="text-lg font-semibold">Pending Sessions</h3>
+          <p className="text-2xl font-bold">{pendingSession}</p>
+        </div>
+        <div className="bg-gradient-to-r from-green-400 to-green-600 p-6 rounded-xl shadow-lg">
+          <h3 className="text-lg font-semibold">Approved Sessions</h3>
+          <p className="text-2xl font-bold">{approvedSession}</p>
         </div>
       </div>
 

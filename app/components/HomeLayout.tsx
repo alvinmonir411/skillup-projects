@@ -1,9 +1,11 @@
 import Banner from "./Banner";
+import Fetured from "./Fetured";
 
 const HomeLayout = async () => {
   return (
-    <div>
+    <div >
       <Banner />
+      <Fetured />
     </div>
   );
 };

@@ -27,10 +27,8 @@ const adminLinks = [
     path: "/admindashboard/teacherRequests",
     icon: <MdAssignment />,
   },
-  { name: "Skills", path: "/admindashboard/skills", icon: <MdLightbulb /> },
+  { name: "Make Fature", path: "/admindashboard/Addfeture", icon: <MdLightbulb /> },
   { name: "Sessions", path: "/admindashboard/sessions", icon: <MdSchedule /> },
-  { name: "Reports", path: "/admindashboard/reports", icon: <MdBarChart /> },
-  { name: "Settings", path: "/admindashboard/settings", icon: <MdSettings /> },
 ];
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
