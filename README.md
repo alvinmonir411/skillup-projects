@@ -45,8 +45,7 @@ Fast. Scalable. Production-ready. Corporate-clean but Gen-Z friendly.
 ### 🔹 Students
 
 - Browse skills & courses
-- Enroll in free/paid classes
-- Watch lessons & track progress
+- Enroll in free classes
 - User dashboard + profile editing
 
 ### 🔹 Teachers
