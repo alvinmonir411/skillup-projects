@@ -68,7 +68,7 @@ Fast. Scalable. Production-ready. Corporate-clean but Gen-Z friendly.
 - Server Actions for forms
 - Role-based authentication (Student / Teacher / Admin)
 - Cloudinary image uploads
-- MongoDB with Mongoose
+- MongoDB 
 - Fully responsive UI
 - Smooth animations (Framer Motion)
 - Toast notifications
@@ -89,7 +89,7 @@ Fast. Scalable. Production-ready. Corporate-clean but Gen-Z friendly.
 ### **Backend**
 
 - Next.js Server Actions
-- MongoDB + Mongoose
+- MongoDB 
 - Cloudinary (thumbnail upload)
 
 ### **Auth**
