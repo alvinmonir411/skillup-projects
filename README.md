@@ -138,7 +138,6 @@ npm run dev
 pgsql
 Copy code
 app/
- ├── (auth)/        → Login/SignUp pages
  ├── (teacher)/     → Teacher dashboard
  ├── (admin)/       → Admin dashboard
  ├── (user)/        → Student dashboard
