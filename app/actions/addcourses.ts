@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { getcloudinaryImageurl } from "../lib/getcloudinaryImageurl";
 import clientPromise from "../lib/mongodb";
+import { revalidatePath } from "next/cache";
 
 const COLLECTION_NAME = "courses";
 const DATABASE_NAME = process.env.MONGODB_DB_NAME || "juwelary";
@@ -74,6 +75,9 @@ export async function addcourses(formData: FormData) {
     };
 
     const result = await coursesCollection.insertOne(newCourse);
+    revalidatePath("/BrowseSkills");
+    revalidatePath("/admindashboard");
+
     console.log("✅ Course inserted:", result.insertedId);
   } catch (error) {
     console.error("❌ DB insert failed:", error);

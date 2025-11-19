@@ -7,6 +7,5 @@ export async function AdminSessionGet() {
   const db = client.db("juwelary");
   const requestSession = db.collection("requestSession");
   const result = await requestSession.find({}).toArray();
-  
   return JSON.parse(JSON.stringify(result));
 }

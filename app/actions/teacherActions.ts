@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import clientPromise from "../lib/mongodb";
 
 import { currentUser } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 
 const COLLECTION_NAME =
   process.env.NEXTAUTH_TEACHER_COLLECTION || "teacherApplications";
@@ -74,6 +75,8 @@ export async function applyForTeacher(formData: FormData) {
     await applicationsCollection.insertOne(applicationDoc);
 
     // Redirect on successful first submission
+    revalidatePath("/admindashboard/teacherRequests");
+    revalidatePath("/userdashboard/myrequest");
     redirect("/");
   } catch (error) {
     console.error("MongoDB/DB Error in applyForTeacher:", error);

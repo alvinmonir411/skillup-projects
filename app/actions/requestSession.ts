@@ -1,14 +1,12 @@
-
 "use server";
 
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import clientPromise from "../lib/mongodb";
-import { ObjectId } from "mongodb"; 
-
+import { ObjectId } from "mongodb";
 
 interface RequestData {
-  courseId: string | ObjectId; 
+  courseId: string | ObjectId;
   teacherId: string;
   type: "access" | "support" | "custom";
   message: string;
@@ -17,19 +15,15 @@ interface RequestData {
 export async function requestSession(formData: RequestData) {
   const user = await currentUser();
 
-
   if (!user) {
     throw new Error("Authorization Required: User must be logged in.");
   }
 
-  
   const docToInsert = {
-    
     ...formData,
 
-
-    studentId: user.id, 
-    status: "pending" as const, 
+    studentId: user.id,
+    status: "pending" as const,
     createdAt: new Date(),
     updatedAt: new Date(),
   };
@@ -41,8 +35,8 @@ export async function requestSession(formData: RequestData) {
 
     const result = await applicationsCollection.insertOne(docToInsert);
 
-    
-    revalidatePath("/userdashboard/myrequest"); 
+    revalidatePath("/userdashboard/myrequest");
+    revalidatePath("/teacherDashboard/profile");
 
     return { success: true, insertedId: result.insertedId.toString() };
   } catch (error) {

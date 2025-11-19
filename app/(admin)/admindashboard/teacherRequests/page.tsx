@@ -1,10 +1,53 @@
+// Renamed for clarity and consistency
+import { getProduct } from "@/app/actions/getProduct";
 import { removeRole, setRole } from "@/app/api/admin/_actions";
 import Link from "next/link";
 
+interface TeacherApplication {
+  clerkUserId: string;
+  fullName: string;
+  userEmail: string;
+  subject: string;
+  level: string;
+  experience: string;
+  status: "pending" | "approved" | "rejected";
+  _id: string;
+}
+
+type FetchedData = TeacherApplication[] | { error: string };
+
 const AdminTeacherApplications = async () => {
-  const baseURL = process.env.NEXTAUTH_URL;
-  const res = await fetch(`${baseURL}/api/getproduct`, { cache: "no-store" });
-  const data = await res.json();
+  const data = await getProduct();
+
+  // 1. Error Handling Check
+  if ("error" in data) {
+    console.error("Failed to load teacher applications:", data.error);
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 text-white py-6 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-2xl md:text-3xl font-bold text-red-400 mb-6">
+            Error Loading Data 🚨
+          </h1>
+          <div className="text-center py-12 bg-red-900/30 rounded-2xl backdrop-blur-sm shadow-lg border border-red-700">
+            <p className="text-xl font-medium text-white/80">
+              A database error occurred while fetching applications.
+            </p>
+            <p className="text-sm text-red-300 mt-2">
+              **Error Detail:** {data.error}
+            </p>
+            <p className="text-sm text-gray-400 mt-1">
+              Please check the server logs.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Now, 'data' is guaranteed to be TeacherApplication[]
+  const applications = data;
+
+  // console.log(applications); // log actual fetched data (already done by the original code)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 text-white py-6 px-4 md:px-8">
@@ -18,7 +61,8 @@ const AdminTeacherApplications = async () => {
           </p>
         </div>
 
-        {data.length === 0 ? (
+        {/* 2. Empty State Check */}
+        {applications.length === 0 ? (
           <div className="text-center py-12 bg-white/10 rounded-2xl backdrop-blur-sm shadow-lg">
             <p className="text-xl font-medium text-white/80">
               No pending teacher applications 🎉
@@ -29,13 +73,14 @@ const AdminTeacherApplications = async () => {
           </div>
         ) : (
           <>
-            {/* Mobile: card list */}
+            {/* Mobile: card list (Mapping loop updated to use 'applications') */}
             <div className="space-y-4 sm:hidden">
-              {data.map((item: any) => (
+              {applications.map((item) => (
                 <div
-                  key={item._id}
+                  key={item.clerkUserId} // Use clerkUserId for unique key
                   className="bg-white/5 backdrop-blur-sm border border-white/8 rounded-lg p-4 shadow-sm"
                 >
+                  {/* ... (mobile card content remains the same) */}
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center justify-between gap-2">
@@ -54,7 +99,6 @@ const AdminTeacherApplications = async () => {
                           {item.status}
                         </span>
                       </div>
-
                       <p className="text-xs text-gray-300 truncate">
                         {item.userEmail}
                       </p>
@@ -130,7 +174,7 @@ const AdminTeacherApplications = async () => {
               ))}
             </div>
 
-            {/* Desktop / Tablet: table */}
+            {/* Desktop / Tablet: table (Mapping loop updated to use 'applications') */}
             <div className="hidden sm:block overflow-x-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl">
               <table className="min-w-full text-sm text-left">
                 <thead className="bg-white/10 text-white uppercase tracking-wider">
@@ -144,11 +188,10 @@ const AdminTeacherApplications = async () => {
                     <th className="px-4 py-3 text-center w-56">Actions</th>
                   </tr>
                 </thead>
-
                 <tbody>
-                  {data.map((item: any) => (
+                  {applications.map((item) => (
                     <tr
-                      key={item._id}
+                      key={item.clerkUserId}
                       className="border-b border-white/10 hover:bg-white/10 transition-colors"
                     >
                       <td className="px-4 py-3">{item.fullName || "—"}</td>
@@ -188,8 +231,8 @@ const AdminTeacherApplications = async () => {
                               />
                               <input
                                 type="hidden"
-                                value="teacher"
                                 name="role"
+                                value="teacher"
                               />
                               <button className="bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors w-full sm:w-auto">
                                 Revoke
@@ -204,8 +247,8 @@ const AdminTeacherApplications = async () => {
                               />
                               <input
                                 type="hidden"
-                                value="teacher"
                                 name="role"
+                                value="teacher"
                               />
                               <button className="bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors w-full sm:w-auto">
                                 Re-Approve
@@ -221,8 +264,8 @@ const AdminTeacherApplications = async () => {
                                 />
                                 <input
                                   type="hidden"
-                                  value="teacher"
                                   name="role"
+                                  value="teacher"
                                 />
                                 <button className="bg-green-500 hover:bg-green-600 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors w-full sm:w-auto">
                                   Approve
@@ -236,8 +279,8 @@ const AdminTeacherApplications = async () => {
                                 />
                                 <input
                                   type="hidden"
-                                  value="teacher"
                                   name="role"
+                                  value="teacher"
                                 />
                                 <button className="bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-md text-xs font-semibold transition-colors w-full sm:w-auto">
                                   Reject

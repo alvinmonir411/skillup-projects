@@ -4,6 +4,7 @@ import { currentUser } from "@clerk/nextjs/server";
 
 import { ObjectId } from "mongodb";
 import clientPromise from "../lib/mongodb";
+import { revalidatePath } from "next/cache";
 
 export async function createCourseRequest({
   courseId,
@@ -51,5 +52,8 @@ export async function createCourseRequest({
   };
 
   const res = await requests.insertOne(doc);
+  revalidatePath("/BrowseSkills");
+  revalidatePath("/teacherDashboard");
+  revalidatePath("/teacherDashboard/profile");
   return { success: true, insertedId: res.insertedId };
 }
